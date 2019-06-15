@@ -67,6 +67,11 @@ class App extends Component {
         });
     }
 
+    logout = () => {
+        tokenHelper.removeToken();
+        this.props.history.push('/login')
+    }
+
     clearState = _ => {
         this.setState({
             username: "",
@@ -88,6 +93,13 @@ class App extends Component {
                     <li>
                         <NavLink to="/jokes">Show me the funny!</NavLink>
                     </li>
+                    {
+                        tokenHelper.getToken() &&
+                        (<li>
+
+                            <button onClick={this.logout}>Logout</button>
+                        </li>)
+                    }
                 </ul>
 
                 <Route
