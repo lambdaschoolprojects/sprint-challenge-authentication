@@ -37,7 +37,9 @@ class App extends Component {
                 console.log(result);
             }
         } catch(err) {
-
+            console.log(err);
+        } finally {
+            this.clearState();
         }
 
     }
