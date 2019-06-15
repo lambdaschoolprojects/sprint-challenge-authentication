@@ -83,30 +83,31 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-               <h1>Welcome to Dad Jokes!</h1>
-                <ul>
-                    <li>
-                        <NavLink to="/register">Register</NavLink>
+            <div className="container">
+                <ul className="nav">
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/register">Register</NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/jokes">Show me the funny!</NavLink>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/jokes">Show me the funny!</NavLink>
                     </li>
                     {
                         tokenHelper.getToken() &&
                         (
-                            <li>
-                                <button href="#" onClick={this.logout}>Logout</button>
+                            <li className="nav-item">
+                                <button className="nav-link" href="#" onClick={this.logout}>Logout</button>
                             </li>
                         )
                             ||
                         (
-                            <li>
-                                <NavLink to="/login"><button>Login</button></NavLink>
+                            <li className="nav-item" >
+                                <NavLink to="/login"><button className="nav-link">Login</button></NavLink>
                             </li>
                         )
                     }
                 </ul>
+
+                <h1 className="mx-auto">Welcome to Dad Jokes!</h1>
 
                 <Route
                     path="/login"

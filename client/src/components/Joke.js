@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Joke = props => {
-    return <div>{  props.joke }</div>;
+    return <li className="list-group-item list-group-item-info">{  props.joke }</li>;
 }
 
 export default Joke;
