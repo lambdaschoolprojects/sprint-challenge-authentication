@@ -11,6 +11,12 @@ module.exports = server => {
   server.get('/api/jokes', authenticate, getJokes);
 };
 
+/**
+ * Endpoint to register a new user
+ * @param req - request from client
+ * @param res - response to client
+ * @returns res - status code plus json
+ */
 async function register(req, res) {
   // implement user registration
   let { password } = req.body;
@@ -31,13 +37,18 @@ async function register(req, res) {
   }
 }
 
+/**
+ * Endpoint for logging in a user
+ * @param req - request from client
+ * @param res - response to client
+ * @returns res - status code plus json
+ */
 async function login(req, res) {
   // implement user login
   const { username, password } = req.body;
 
   try {
     const user = await db('users').where({ username }).first();
-    console.log(user);
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = tokenService.generateToken(user);
       res.status(200).json({
