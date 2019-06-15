@@ -87,9 +87,6 @@ class App extends Component {
                <h1>Welcome to Dad Jokes!</h1>
                 <ul>
                     <li>
-                        <NavLink to="/login">Login</NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/register">Register</NavLink>
                     </li>
                     <li>
@@ -97,10 +94,17 @@ class App extends Component {
                     </li>
                     {
                         tokenHelper.getToken() &&
-                        (<li>
-
-                            <button onClick={this.logout}>Logout</button>
-                        </li>)
+                        (
+                            <li>
+                                <button href="#" onClick={this.logout}>Logout</button>
+                            </li>
+                        )
+                            ||
+                        (
+                            <li>
+                                <NavLink to="/login"><button>Login</button></NavLink>
+                            </li>
+                        )
                     }
                 </ul>
 
