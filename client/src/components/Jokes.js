@@ -11,8 +11,6 @@ class Jokes extends Component {
     async componentDidMount() {
         const jokes = await this.props.getJokes();
 
-        console.log(jokes);
-
         this.setState({ jokes });
     }
 
