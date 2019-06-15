@@ -5,6 +5,9 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Jokes from './components/Jokes';
 
+import api from './helpers/api';
+import * as tokenHelper from './helpers/handleToken';
+
 class App extends Component {
     state = {
         password: "",
@@ -15,19 +18,57 @@ class App extends Component {
 
     }
 
-    handleLogin = _ => {
+    handleLogin = async e => {
+        e.preventDefault();
+
+        const { username, password } = this.state;
+
+        try {
+            const result = await api.post("/login", {
+                username,
+                password
+            })
+            if(result.status === 200) {
+                tokenHelper.setToken(result.data.token);
+                this.props.history.push('/jokes');
+            } else {
+                console.log(result);
+            }
+        } catch(err) {
+
+        }
 
     }
 
-    handleRegister = _ => {
+    handleRegister = async e => {
+        e.preventDefault();
 
+        const { username, password } = this.state;
+
+        try {
+            const result = await api.post("/register", {
+                username, password
+            });
+
+            if(result) console.log(result);
+        } catch (err) {
+            console.log(err)
+        } finally {
+            this.clearState();
+        }
     }
 
     handleChange = e => {
-        e.preventDefault();
 
         this.setState({
             [e.target.name]: e.target.value
+        });
+    }
+
+    clearState = _ => {
+        this.setState({
+            username: "",
+            password: ""
         });
     }
 
@@ -53,6 +94,9 @@ class App extends Component {
                         (<Login
                             handleChange={this.handleChange}
                             handleLogin={this.handleLogin}
+                            clearState={this.clearState}
+                            username={this.state.username}
+                            password={this.state.password}
                         />)}
                 />
                 <Route
@@ -61,6 +105,9 @@ class App extends Component {
                         (<Register
                             handleChange={this.handleChange}
                             handleRegister={this.handleRegister}
+                            clearState={this.clearState}
+                            username={this.state.username}
+                            password={this.state.password}
                         />)}
                 />
                 <Route
