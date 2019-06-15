@@ -14,8 +14,10 @@ class App extends Component {
         username: "",
     }
 
-    getJokes = _ => {
+    getJokes = async _ => {
+        const jokes = await api.get('/jokes');
 
+        return jokes.data;
     }
 
     handleLogin = async e => {
